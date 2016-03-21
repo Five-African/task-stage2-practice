@@ -14,10 +14,8 @@
 <script type="text/javascript">
 
 (function() {
-		var btn = document.getElementById("button");
-		var spanVal = document.getElementById("aqi-display");
-		btn.onclick = function(){
-			spanVal.innerText = document.getElementById("aqi-input").value;
+		document.getElementById("button").onclick = function(){
+			document.getElementById("aqi-display").innerText = document.getElementById("aqi-input").value;
 		}
 })();
 
