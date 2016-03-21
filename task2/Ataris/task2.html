@@ -27,6 +27,7 @@ var aqiData = [
 (function () {
   var num=["一","二","三","四","五","六","七","八","九","十"];
   var list=1;
+  apiData.sort(function(a,b){return b[1]-a[1];});
   for(i of aqiData){
     if(i[1]>60)
       document.getElementById('aqi-list').innerHTML+="<li>第"+num[list++]+"名："+i[0]+"，"+i[1]+"</li>";
