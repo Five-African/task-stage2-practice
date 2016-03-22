@@ -101,7 +101,8 @@
 				return;
 			dosomething(node);
 			preOrder(node.firstElementChild);
-			preOrder(node.lastElementChild);
+			if(node.children.length>=2)
+				preOrder(node.lastElementChild);
 		}
 
 		function inOrder(node)
@@ -110,7 +111,8 @@
 				return;
 			midOrder(node.firstElementChild);
 			dosomething(node);
-			midOrder(node.lastElementChild);
+			if(node.children.length>=2)
+				midOrder(node.lastElementChild);
 		}
 
 		function postOrder(node)
@@ -118,7 +120,8 @@
 			if(!node)
 				return;
 			postOrder(node.firstElementChild);
-			postOrder(node.lastElementChild);
+			if(node.children.length>=2)
+				postOrder(node.lastElementChild);
 			dosomething(node);
 		}
 
