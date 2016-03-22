@@ -35,10 +35,14 @@
     function deal(func, val) {
       var args = [].slice.call(arguments, 1);
       return function(e) {
-        var arg = args.map(function(item) {
-          return typeof item === "function" ? item(e) : item;
-        });
-        func.apply(data, arg);
+        try {
+          var arg = args.map(function(item) {
+            return typeof item === "function" ? item(e) : item;
+          });
+          func.apply(data, arg);
+        } catch (e) {
+          alert(e.message);
+        }
 
         render();
       };
@@ -48,8 +52,7 @@
       var numStr = $('input').value;
 
       if (!validate(numStr)) {
-        alert('error');
-        return;
+        throw new Error('input error');
       }
 
       return parseInt(numStr);
