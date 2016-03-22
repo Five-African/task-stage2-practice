@@ -32,29 +32,28 @@
           .join('');
     }
 
-    function deal(func, val) {
-      var args = [].slice.call(arguments, 1);
+    function deal(func, succ) {
+      var args = [].slice.call(arguments, 2);
       return function(e) {
         try {
           var arg = args.map(function(item) {
             return typeof item === "function" ? item(e) : item;
           });
-          func.apply(data, arg);
-        } catch (e) {
-          alert(e.message);
-        }
+          var result = func.apply(data, arg);
 
+          if (succ != null) {
+            succ(result);
+          }
+        } catch (ex) {
+          alert(ex.message);
+        }
         render();
       };
     }
 
     function getInputValue() {
       var numStr = $('input').value;
-
-      if (!validate(numStr)) {
-        throw new Error('input error');
-      }
-
+      if (!validate(numStr)) throw new Error('input error');
       return parseInt(numStr);
     }
 
@@ -67,11 +66,11 @@
       return /\d+/.test(str);
     }
 
-    $('#left-in').onclick = deal([].unshift, getInputValue);
-    $('#right-in').onclick = deal([].push, getInputValue);
-    $('#left-out').onclick = deal([].shift);
-    $('#right-out').onclick = deal([].pop);
-    $('#result').onclick = deal([].splice, getClickIndex, 1);
+    $('#left-in').onclick = deal([].unshift, null, getInputValue);
+    $('#right-in').onclick = deal([].push, null, getInputValue);
+    $('#left-out').onclick = deal([].shift, window.alert);
+    $('#right-out').onclick = deal([].pop, window.alert);
+    $('#result').onclick = deal([].splice, null, getClickIndex, 1);
   </script>
 </body>
 </html>
