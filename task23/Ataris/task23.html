@@ -89,7 +89,7 @@
 		//选取元素
 		var delayChian=delay(function(){},node,0);
 		var found=false;
-
+		var isRun = false;
 		function delay(fn, args, t) {
 		    // private instance variables
 		    var queue = [], self, timer, disabled=false;
@@ -99,8 +99,13 @@
 		    		timer = null;
 		    		fn(args);
 		    		if (queue.length) {
+		    			isRun = true;
 		    			var item = queue.shift();
 		    			schedule(item.fn, item.args, item.t);
+		    		}
+		    		else
+		    		{
+		    			isRun = false;
 		    		}
 		    	}, t);            
 		    }
@@ -140,6 +145,7 @@
 		{
 			node.className="found";
 			found=true;
+			isRun = false;
 			//delayChian.disable();
 		}
 		//动画设置
@@ -218,6 +224,10 @@
 
 		function Traversal(order)
 		{
+			if(isRun){
+				alert('手离开鼠标！憋说话，吻我！');
+				return;
+			}
 			var arg = $('#search').value.trim();
 			if(arg=="")
 			{
@@ -235,9 +245,14 @@
 				case 'level':levelOrder($('#root'),arg);break;
 				case 'depth':depthOrder($('#root'),arg);break;
 			}
+			
 		}
 		function init()
 		{
+			if(isRun){
+				alert('手离开鼠标！憋说话，吻我！');
+				return;
+			}
 			$("#root").innerHTML=$("#node").value;
 		}
 	</script>
