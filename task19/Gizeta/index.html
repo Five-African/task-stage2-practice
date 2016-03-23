@@ -156,7 +156,8 @@
             succ(result);
           }
         } catch (ex) {
-          alert(ex.message);
+          if (ex.message != '')
+            alert(ex.message);
         }
         render();
       };
@@ -173,6 +174,7 @@
 
     function getClickIndex(e) {
       var node = e.target;
+      if (node.id == "result") throw new Error(''); // do not deal this
       return [].indexOf.call(node.parentNode.children, node);
     }
 
