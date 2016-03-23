@@ -124,12 +124,15 @@
 		        cancel: function() {
 		        	clearTimeout(timer);
 		        	queue = [];
+		        	return self;
 		        },
 		        disable: function() {
 		        	disabled = true;
+		        	return self;
 		        },
 		        enable: function() {
 		        	disabled = false;
+		        	return self;
 		        }
 		    };
 		    return self.delay(fn, args, t);
@@ -145,8 +148,8 @@
 		function find(node)
 		{
 			node.className="found";
-			found=confirm('你瞎啥呀！逮着一个了，瘪犊子玩意还接着找不？(钢背兽)');
-			isRun = found;
+			found=!confirm('你瞎啥呀！逮着一个了，瘪犊子玩意还接着找不？(钢背兽)');
+			isRun = !found;
 			founded=true;
 			//delayChian.disable();
 		}
@@ -159,9 +162,7 @@
 		{
 			for (i in node.childNodes) {
 				if(node.childNodes[i].data&&node.childNodes[i].data.trim()==arg){
-					delayChian.delay(setClass,node,0).delay(find,node,500);
-					if(found)
-						delay.disable();
+					delayChian.delay(setClass,node,0).delay(find,node,500).delay(function(){if(found)delayChian.cancel().disable();},node,500)
 					return;
 				}
 			}
