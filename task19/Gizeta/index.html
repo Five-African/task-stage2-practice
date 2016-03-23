@@ -41,6 +41,7 @@
     var data = [];
     var sizeFactor = 5;
     var aniQue = delay(function(){}, 0);
+    var inAnimation = false;
 
     function delay(fn, t) {
       var queue = [], self, timer;
@@ -147,6 +148,8 @@
     function deal(func, succ) {
       var args = [].slice.call(arguments, 2);
       return function(e) {
+        if (inAnimation) return;
+
         try {
           var arg = args.map(function(item) {
             return typeof item === "function" ? item(e) : item;
@@ -192,7 +195,11 @@
     $('#left-out').onclick = deal([].shift, window.alert);
     $('#right-out').onclick = deal([].pop, window.alert);
     $('#result').onclick = deal([].splice, null, getClickIndex, 1);
-    $('#sort').onclick = function(){ sort(0, getLastIndex()); };
+    $('#sort').onclick = function(){
+      inAnimation = true;
+      sort(0, getLastIndex());
+      inAnimation = false;
+    };
   </script>
 </body>
 </html>
