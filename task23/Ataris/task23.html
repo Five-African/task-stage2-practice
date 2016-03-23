@@ -89,6 +89,7 @@
 		//选取元素
 		var delayChian=delay(function(){},node,0);
 		var found=false;
+		var founded = false;
 		var isRun = false;
 		function delay(fn, args, t) {
 		    // private instance variables
@@ -144,8 +145,9 @@
 		function find(node)
 		{
 			node.className="found";
-			found=true;
-			isRun = false;
+			found=confirm('你瞎啥呀！逮着一个了，瘪犊子玩意还接着找不？(钢背兽)');
+			isRun = found;
+			founded=true;
 			//delayChian.disable();
 		}
 		//动画设置
@@ -157,7 +159,9 @@
 		{
 			for (i in node.childNodes) {
 				if(node.childNodes[i].data&&node.childNodes[i].data.trim()==arg){
-					delayChian.delay(setClass,node,0).delay(find,node,500).disable();
+					delayChian.delay(setClass,node,0).delay(find,node,500);
+					if(found)
+						delay.disable();
 					return;
 				}
 			}
@@ -236,6 +240,7 @@
 			}
 			init();
 			found=false;
+			founded=false;
 			delayChian.enable();
 			switch(order)
 			{
@@ -245,7 +250,7 @@
 				case 'level':levelOrder($('#root'),arg);break;
 				case 'depth':depthOrder($('#root'),arg);break;
 			}
-			
+				delayChian.delay(function(){if(!founded)alert('然而并没找到');},null,500);
 		}
 		function init()
 		{
