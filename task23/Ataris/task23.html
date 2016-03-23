@@ -82,8 +82,8 @@
 		<div>Fish</div>
 	</div></textarea>
 <button onclick="init()">替换节点</button>
-<!-- <button onclick="Traversal('pre')">先序遍历</button><button onclick="Traversal('in')">中序遍历</button><button onclick="Traversal('post')">后序遍历</button><button onclick="Traversal('level')">广度优先遍历</button><button onclick="Traversal('depth')">深度优先遍历</button> -->
-<input type="text" id="search" /><button onclick="Traversal('pre')">先序搜索</button><button onclick="Traversal('in')">中序搜索</button><button onclick="Traversal('post')">后序搜索</button><button onclick="Traversal('level')">广度优先搜索</button><button onclick="Traversal('depth')">深度优先搜索</button>
+<button onclick="Traversal('pre')">先序遍历</button><button onclick="Traversal('in')">中序遍历</button><button onclick="Traversal('post')">后序遍历</button><button onclick="Traversal('level')">广度优先遍历</button><button onclick="Traversal('depth')">深度优先遍历</button>
+<input type="text" id="search" /><button onclick="Traversal('pre','search')">先序搜索</button><button onclick="Traversal('in','search')">中序搜索</button><button onclick="Traversal('post','search')">后序搜索</button><button onclick="Traversal('level','search')">广度优先搜索</button><button onclick="Traversal('depth','search')">深度优先搜索</button>
 	<script type="text/javascript">
 		$ = function (el) { return document.querySelector(el); };
 		//选取元素
@@ -161,7 +161,7 @@
 		function dosomething(node,arg)
 		{
 			for (i in node.childNodes) {
-				if(node.childNodes[i].data&&node.childNodes[i].data.trim()==arg){
+				if(node.childNodes[i].data&&node.childNodes[i].data.trim()===arg){
 					delayChian.delay(setClass,node,0).delay(find,node,500).delay(function(){if(found)delayChian.cancel().disable();},node,500)
 					return;
 				}
@@ -227,13 +227,13 @@
 			depthOrder(node.nextElementSibling,arg);
 		}//深度优先
 
-		function Traversal(order)
+		function Traversal(order,arg)
 		{
 			if(isRun){
 				alert('手离开鼠标！憋说话，吻我！');
 				return;
 			}
-			var arg = $('#search').value.trim();
+			arg = arg==='search'?$('#search').value.trim():null;
 			if(arg=="")
 			{
 				alert("请不要输入空字符串");
@@ -251,7 +251,7 @@
 				case 'level':levelOrder($('#root'),arg);break;
 				case 'depth':depthOrder($('#root'),arg);break;
 			}
-				delayChian.delay(function(){if(!founded)alert('然而并没找到');},null,500);
+				delayChian.delay(function(){if(!founded&&arg)alert('然而并没找到');},null,500);
 		}
 		function init()
 		{
