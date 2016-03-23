@@ -119,6 +119,7 @@
       if (value != null) {
         aniQue.delay(function() {
           $$('#result div')[idx].style.height = value * sizeFactor + 'px';
+          $$('#result div')[idx].title = value.toString();
         }, 0);
       }
 
