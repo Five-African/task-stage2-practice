@@ -51,12 +51,15 @@
           var arg = args.map(function(item) {
             return typeof item === "function" ? item(e) : item;
           });
+          var result;
           if (Object.prototype.toString.call(arg[0]) === '[object Array]') {
-            arg = arg.reduce(function(a, b) {
-              return a.concat(b);
+            arg[0].forEach(function(d) {
+              result = func.apply(data, [d].concat(arg.slice(1)));
             });
           }
-          var result = func.apply(data, arg);
+          else {
+            result = func.apply(data, arg)
+          }
 
           if (succ != null) {
             succ(result);
@@ -70,7 +73,7 @@
     }
 
     function getInputValue() {
-      return $('#input').value.split(/[^0-9a-zA-Z\u4e00-\u9fa5]+/);
+      return $('#input').value.split(/[^0-9a-zA-Z\u4e00-\u9fa5]+/).filter(function(d){return d != '';});
     }
 
     function getClickIndex(e) {
