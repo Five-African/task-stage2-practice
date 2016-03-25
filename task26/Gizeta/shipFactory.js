@@ -1,27 +1,26 @@
 /* 造船厂 */
 var ShipFactory = (function() {
-  var shipCount = 0;
+  var ships = [];
 
-  /* 国家机密 is private */
+  /* 机密 */
   var Ship = function(id) {
     this.id = id;
-    this.state = -1; // not exist
+    this.state = 0;
     this.power = 100;
     this.maxPower = 100;
-    this.powerSystem = new PowerSystem();
-    this.supplySystem = new SupplySystem();
-    this.destroySystem = new DestroySystem();
-    this.notifySystem = new NotifySystem();
+    this.powerSystem = new PowerSystem(this);
+    this.supplySystem = new SupplySystem(this);
+    this.destroySystem = new DestroySystem(this);
+    this.notifySystem = new NotifySystem(this);
   }
   Ship.prototype.toString = function() { // let me know who are you
     return "Ship No. " + this.id;
   }
   Ship.prototype.dealMessage = function(message) {
-    switch (message) {
-      case "create":
-        this.state = 0;
-        Logger.log('created', this);
-        break;
+    if (this.state == -1) return;
+    var data = JSON.parse(message);
+    if (data.id != this.id) return;
+    switch (data.command) {
       case "startup":
         this.powerSystem.run();
         break;
@@ -36,11 +35,14 @@ var ShipFactory = (function() {
         break;
     }
   };
-  Ship.prototype.dealFeedback = function() {};
 
   return {
     create: function() {
-      return new Ship(++shipCount);
+      var ship = new Ship(ship.length + 1);
+      ships.push(ship);
+      Mediator.registerShip(ship.id, ship.notifySystem);
+      Logger.log('created', ship);
+      return ship.id;
     }
   };
 })();

@@ -21,7 +21,7 @@ PowerSystem.prototype.run = function() {
       this.stop();
     }
   }).bind(this), 1000);
-  Logger.log('startup', this);
+  Logger.log('startup', this.ship);
 }
 PowerSystem.prototype.stop = function() {
   if (this.timer == null || this.ship.state == -1) return;
@@ -30,5 +30,5 @@ PowerSystem.prototype.stop = function() {
   }
   clearInterval(this.timer);
   this.timer = null;
-  Logger.log('shutdown', this);
+  Logger.log('shutdown', this.ship);
 }

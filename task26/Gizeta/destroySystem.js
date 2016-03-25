@@ -4,5 +4,5 @@ var DestroySystem = function(ship) {
 DestroySystem.prototype.destroy = function() {
   if (this.ship.state == -1) return;
   this.ship.state = -1;
-  Logger.log('destroy', this);
+  Logger.log('destroy', this.ship);
 }
