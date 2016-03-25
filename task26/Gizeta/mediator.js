@@ -16,18 +16,11 @@ var Mediator = (function() {
     notifyShips: function(data) {
       Object.keys(ships).forEach(function(id) {
         if (!loss()) {
-          ships[id].notify(JSON.stringify(data));
+          ships[id].notify(hq, JSON.stringify(data));
         } else {
           Logger.warn('packet to ship ' + id + ' is lost', Mediator);
         }
       });
-    },
-    notifyHq: function(data) {
-      if (!loss()) {
-        hq.notify(JSON.stringify(data));
-      } else {
-        Logger.warn('packet to ship ' + id + ' is lost', Mediator);
-      }
     },
     toString: function() {
       return "Mediator";

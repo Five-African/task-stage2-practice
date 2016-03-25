@@ -38,11 +38,14 @@ var ShipFactory = (function() {
 
   return {
     create: function() {
-      var ship = new Ship(ship.length + 1);
+      var ship = new Ship(ships.length + 1);
       ships.push(ship);
       Mediator.registerShip(ship.id, ship.notifySystem);
       Logger.log('created', ship);
       return ship.id;
+    },
+    getShips: function() {
+      return ships;
     }
   };
 })();
