@@ -1,19 +1,12 @@
 var Render = (function() {
   var $ = function (el) { return document.querySelector(el); };
 
-  var shipIdCache = [];
-
   var shouldRenderShip = function() {
     return true; // always
   };
 
   var shouldRenderController = function() {
-    var shipId = HeadQuarter.getShips();
-    if (shipIdCache.toString() != shipId.toString()) {
-      shipIdCache = shipId;
-      return true;
-    }
-    return false;
+    return true; // difficult to diff, temporarily remove
   };
 
   var renderShips = function() {
@@ -31,12 +24,13 @@ var Render = (function() {
   }
 
   var renderController = function() {
+    var ships = HeadQuarter.getShips();
     var controllerDom = $('#ship-controller');
     var content = '';
-    shipIdCache.forEach(function(id) {
+    Object.keys(ships).forEach(function(id) {
       content += "<div>对" + id + "号飞船下达指令：";
-      content += "<button onclick='javascript:HeadQuarter.startupShip(" + id + ")'>开始飞行</button>";
-      content += "<button onclick='javascript:HeadQuarter.shutdownShip(" + id + ")'>停止飞行</button>";
+      content += "<button onclick='javascript:HeadQuarter.startupShip(" + id + ")'" + (ships[id] == 1 ? " disabled='disabled'" : "") + ">开始飞行</button>";
+      content += "<button onclick='javascript:HeadQuarter.shutdownShip(" + id + ")'" + (ships[id] == 0 ? " disabled='disabled'" : "") + ">停止飞行</button>";
       content += "<button onclick='javascript:HeadQuarter.destroyShip(" + id + ")'>销毁</button>";
       content += "</div>";
     });

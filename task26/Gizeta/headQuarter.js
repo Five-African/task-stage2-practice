@@ -2,9 +2,11 @@ var HeadQuarter = (function() {
   var ships = {};
 
   var sendCommand = function(id, command) {
-    Mediator.notifyShips({
-      id: id,
-      command: command
+    Object.keys(ships).forEach(function(shipId) {
+      Mediator.notifyShips(shipId, {
+        id: id,
+        command: command
+      });
     });
   }
 
@@ -45,7 +47,7 @@ var HeadQuarter = (function() {
       delete ships[id];
     },
     getShips: function() {
-      return Object.keys(ships);
+      return ships;
     },
     toString: function() {
       return "HeadQuarter";
