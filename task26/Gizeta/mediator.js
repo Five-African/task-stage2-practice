@@ -14,11 +14,13 @@ var Mediator = (function() {
       hq = headQuater;
     },
     notifyShips: function(id, data) {
-      if (!loss()) {
-        ships[id].notify(hq, JSON.stringify(data));
-      } else {
-        Logger.warn('packet to ship ' + id + ' is lost', Mediator);
-      }
+      setTimeout(function() {
+        if (!loss()) {
+          ships[id].notify(hq, JSON.stringify(data));
+        } else {
+          Logger.warn('packet to ship ' + id + ' is lost', Mediator);
+        }
+      }, 1000);
     },
     toString: function() {
       return "Mediator";
