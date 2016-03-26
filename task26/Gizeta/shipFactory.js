@@ -8,6 +8,7 @@ var ShipFactory = (function() {
     this.state = 0;
     this.power = 100;
     this.maxPower = 100;
+    this.position = 0;
     this.powerSystem = new PowerSystem(this);
     this.supplySystem = new SupplySystem(this);
     this.destroySystem = new DestroySystem(this);

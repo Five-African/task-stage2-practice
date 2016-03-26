@@ -1,6 +1,6 @@
 var SupplySystem = function(ship) {
   this.ship = ship;
-  this.supply = 2;
+  this.supply = 0.2;
   this.timer = setInterval((function() {
     if (this.ship.state == -1) {
       clearInterval(this.timer);
@@ -10,5 +10,5 @@ var SupplySystem = function(ship) {
         this.ship.power = this.ship.maxPower;
       }
     }
-  }).bind(this), 1000);
+  }).bind(this), 100);
 };

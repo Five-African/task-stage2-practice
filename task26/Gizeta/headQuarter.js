@@ -44,6 +44,9 @@ var HeadQuarter = (function() {
       Logger.log('destroy ship ' + id.toString(), headQuarter);
       delete ships[id];
     },
+    getShips: function() {
+      return Object.keys(ships);
+    },
     toString: function() {
       return "HeadQuarter";
     }

@@ -3,7 +3,7 @@ var Mediator = (function() {
   var hq = null;
 
   var loss = function() {
-    return Math.random() * 3 < 1;
+    return Math.random() < 0.3;
   }
 
   return {

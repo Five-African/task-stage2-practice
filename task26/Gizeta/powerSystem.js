@@ -1,7 +1,7 @@
 var PowerSystem = function(ship) {
   this.ship = ship;
-  this.speed = 20;
-  this.consume = 5;
+  this.speed = 2;
+  this.consume = 0.5;
   this.timer = null;
 };
 PowerSystem.prototype.run = function() {
@@ -16,11 +16,11 @@ PowerSystem.prototype.run = function() {
     }
     if (this.ship.power >= this.consume) {
       this.ship.power -= this.consume;
+      this.ship.position += this.speed;
+      if (this.ship.position > 360)
+        this.ship.position -= 360;
     }
-    else {
-      this.stop();
-    }
-  }).bind(this), 1000);
+  }).bind(this), 100);
   Logger.log('startup', this.ship);
 }
 PowerSystem.prototype.stop = function() {
