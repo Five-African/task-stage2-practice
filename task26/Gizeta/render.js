@@ -7,7 +7,7 @@ var Render = (function() {
   };
 
   var shouldRenderController = function() {
-    return renderCount % 10 == 0; // difficult to diff, temporarily remove
+    return renderCount % 5 == 0; // difficult to diff, temporarily remove
   };
 
   var renderShips = function() {
