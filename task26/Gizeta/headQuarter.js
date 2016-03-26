@@ -1,5 +1,5 @@
 var HeadQuarter = (function() {
-  var ships = {};
+  var ships = {}; // save ship state, 0 for stop, 1 for run
 
   var sendCommand = function(id, command) {
     Object.keys(ships).forEach(function(shipId) {
@@ -13,7 +13,7 @@ var HeadQuarter = (function() {
   var headQuarter = {
     createShip: function() {
       if (Object.keys(ships).length > 3) {
-        Logger.error('cannot create any more', headQuarter);
+        Logger.error('cannot create any more ships', headQuarter);
         return;
       }
       var shipId = ShipFactory.create();
@@ -46,6 +46,7 @@ var HeadQuarter = (function() {
       Logger.log('destroy ship ' + id.toString(), headQuarter);
       delete ships[id];
     },
+    dealMessage: function() {},// should not reach here
     getShips: function() {
       return ships;
     },

@@ -2,7 +2,7 @@ var Render = (function() {
   var $ = function (el) { return document.querySelector(el); };
 
   var shouldRenderShip = function() {
-    return true; // always
+    return true; // always, but cause to performance problem
   };
 
   var shouldRenderController = function() {

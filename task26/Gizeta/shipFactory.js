@@ -1,11 +1,12 @@
 /* 造船厂 */
 var ShipFactory = (function() {
   var ships = [];
+  var count = 1;
 
   /* 机密 */
   var Ship = function(id) {
     this.id = id;
-    this.state = 0;
+    this.state = 0; // save ship state, -1 for destroy, 0 for stop, 1 for run
     this.power = 100;
     this.maxPower = 100;
     this.position = 0;
@@ -30,6 +31,8 @@ var ShipFactory = (function() {
         break;
       case "destroy":
         this.destroySystem.destroy();
+        ships.splice(ships.indexOf(this), 1);
+        // will gc collect this instance?
         break;
       default:
         Logger.warn('喵喵喵？', this);
@@ -39,11 +42,11 @@ var ShipFactory = (function() {
 
   return {
     create: function() {
-      var ship = new Ship(ships.length + 1);
+      var ship = new Ship(count);
       ships.push(ship);
       Mediator.registerShip(ship.id, ship.notifySystem);
       Logger.log('created', ship);
-      return ship.id;
+      return count++;
     },
     getShips: function() {
       return ships;
