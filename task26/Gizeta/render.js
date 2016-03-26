@@ -1,12 +1,13 @@
 var Render = (function() {
   var $ = function (el) { return document.querySelector(el); };
+  var renderCount = 0;
 
   var shouldRenderShip = function() {
     return true; // always, but cause to performance problem
   };
 
   var shouldRenderController = function() {
-    return true; // difficult to diff, temporarily remove
+    return renderCount % 10 == 0; // difficult to diff, temporarily remove
   };
 
   var renderShips = function() {
@@ -45,6 +46,7 @@ var Render = (function() {
       if (shouldRenderController()) {
         renderController();
       }
+      renderCount++;
     },
     toString: function() {
       return "Render";
