@@ -31,6 +31,46 @@ function checkName(tag) {
 
 }
 
+function checkPassword(tag) {
+    var tip = tag.nextElementSibling;
+    var str = tag.value;
+    if (!pass) {
+        tag.nextElementSibling.style.display = 'inline-block';
+    }
+    if (str.length >=4 && str.length <= 16) {
+        tip.style.color = 'lightgreen';
+        tag.style.border = '2px solid lightgreen';
+        tip.innerHTML = '';
+        pass = true;
+    } else {
+        tip.innerHTML = '请输入4-16位的密码';
+        tip.style.color = 'red';
+        tag.style.border = '2px solid red';
+    }
+
+}
+
+function checkPasswordConfirm(tag) {
+    var tip = tag.nextElementSibling;
+    var str = tag.value;
+    var strPassword = $("#password input").value;
+    console.log(str,strPassword);
+    if (!pass) {
+        tag.nextElementSibling.style.display = 'inline-block';
+    }
+    if (str === strPassword) {
+        tip.style.color = 'lightgreen';
+        tag.style.border = '2px solid lightgreen';
+        tip.innerHTML = '密码正确';
+        pass = true;
+    } else {
+        tip.innerHTML = '再次输入密码';
+        tip.style.color = 'red';
+        tag.style.border = '2px solid red';
+    }
+
+}
+
 function checkEmail(tag) {
     var tip = tag.nextElementSibling;
     var str = tag.value;
@@ -70,6 +110,11 @@ function checkPhoneNumber(tag) {
         tag.style.border = '2px solid red';
     }
 
+}
+
+
+function clickBtn() {
+    
 }
 
 

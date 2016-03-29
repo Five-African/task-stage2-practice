@@ -28,9 +28,11 @@ input:nth-child(2){
     padding-left: 10px;
     
 }
-p{
+#tip{
     color: #a8a8a8;
     padding-left: 100px;
+    display: inline-block;
+    width: auto;
 }
 #btn input{
     float: right;
