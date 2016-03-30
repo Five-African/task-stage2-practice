@@ -42,7 +42,7 @@ function checkPassword(tag) {
     if (str.length >=4 && str.length <= 16) {
         tip.style.color = 'lightgreen';
         tag.style.border = '2px solid lightgreen';
-        tip.innerHTML = '';
+        tip.innerHTML = '格式正确';
         pass = true;
         return 1;
     } 
@@ -78,7 +78,7 @@ function checkPasswordConfirm(tag) {
         return 1;
     } 
     else {
-        tip.innerHTML = '再次输入密码';
+        tip.innerHTML = '再次输入相同的密码';
         tip.style.color = 'red';
         tag.style.border = '2px solid red';
         pass = false;
