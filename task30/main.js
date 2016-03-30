@@ -1,11 +1,6 @@
 var $ = function(el) {
     return document.querySelector(el);
 };
-
-var userName = $('#name input');
-var userPassword = $('#password input');
-var userMail = $('#mail input');
-var userPhoneNumber = $('#phoneNumber input');
 var pass = false;
 
 function checkName(tag) {
@@ -18,15 +13,22 @@ function checkName(tag) {
         tip.innerHTML = '姓名不能为空';
         tip.style.color = 'red';
         tag.style.border = '2px solid red';
-    } else if (GetLength(str) >= 4 && GetLength(str) <= 16) {
+        pass = false;
+        return 0;
+    } 
+    else if (GetLength(str) >= 4 && GetLength(str) <= 16) {
         tip.innerHTML = '格式正确';
         tip.style.color = 'lightgreen';
         tag.style.border = '2px solid lightgreen';
         pass = true;
-    } else {
+        return 1;
+    } 
+    else {
         tip.innerHTML = '字符数应为4~16位';
         tip.style.color = 'red';
         tag.style.border = '2px solid red';
+        pass = false;
+        return 0;
     }
 
 }
@@ -42,10 +44,14 @@ function checkPassword(tag) {
         tag.style.border = '2px solid lightgreen';
         tip.innerHTML = '';
         pass = true;
-    } else {
+        return 1;
+    } 
+    else {
         tip.innerHTML = '请输入4-16位的密码';
         tip.style.color = 'red';
         tag.style.border = '2px solid red';
+        pass = false;
+        return 0;
     }
 
 }
@@ -54,19 +60,29 @@ function checkPasswordConfirm(tag) {
     var tip = tag.nextElementSibling;
     var str = tag.value;
     var strPassword = $("#password input").value;
-    console.log(str,strPassword);
     if (!pass) {
         tag.nextElementSibling.style.display = 'inline-block';
     }
-    if (str === strPassword) {
+    if (str.length < 4 || str.length > 16) {
+        tip.innerHTML = '请输入4-16位的密码';
+        tip.style.color = 'red';
+        tag.style.border = '2px solid red';
+        pass = false;
+        return 0;
+    }
+    else if (str === strPassword) {
         tip.style.color = 'lightgreen';
         tag.style.border = '2px solid lightgreen';
         tip.innerHTML = '密码正确';
         pass = true;
-    } else {
+        return 1;
+    } 
+    else {
         tip.innerHTML = '再次输入密码';
         tip.style.color = 'red';
         tag.style.border = '2px solid red';
+        pass = false;
+        return 0;
     }
 
 }
@@ -83,10 +99,14 @@ function checkEmail(tag) {
         tip.style.color = 'lightgreen';
         tag.style.border = '2px solid lightgreen';
         pass = true;
-    } else {
+        return 1;
+    } 
+    else {
         tip.innerHTML = '请输入正确的邮箱地址';
         tip.style.color = 'red';
         tag.style.border = '2px solid red';
+        pass = false;
+        return 0;
     }
 
 }
@@ -104,20 +124,27 @@ function checkPhoneNumber(tag) {
         tip.style.color = 'lightgreen';
         tag.style.border = '2px solid lightgreen';
         pass = true;
-    } else {
+        return 1;
+    } 
+    else {
         tip.innerHTML = '请输入正确的手机号码';
         tip.style.color = 'red';
         tag.style.border = '2px solid red';
+        pass = false;
+        return 0;
     }
-
-}
-
-
-function clickBtn() {
     
 }
 
 
+function clickBtn() {
+    if(checkName($('#name input')) === 0 || checkPassword($('#password input')) === 0 || checkPasswordConfirm($("#passwordConfirm input")) === 0 || checkEmail($("#email input")) === 0 || checkPhoneNumber($('#phoneNumber input')) === 0){
+        alert("您的输入有误 或者 输入信息不完整，请细心检查");
+    }
+    else{
+        alert("信息提交成功");
+    }
+}
 
 
 
@@ -129,11 +156,5 @@ function hiddenTip(tag) {
     }
 }
 function GetLength(str) {
-    var realLength = 0;
-    for (var i = 0; i < str.length; i++) {
-        charCode = str.charCodeAt(i);
-        if (charCode >= 0 && charCode <= 128) realLength += 1;
-        else realLength += 2;
-    }
-    return realLength;
+    return str.replace(/[^\x00-\xff]/g, '__').length;
 };
