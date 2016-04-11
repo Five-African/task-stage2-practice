@@ -4,15 +4,15 @@
   <head>
     <meta charset="utf-8" />
     <title>
-      Task 29
+      Task 31
     </title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
       <div id="isStudent">
-          <input type="radio" name="isStudent" checked />
+          <input type="radio" name="isStudent" checked="checked" onkeydown="isSchool(this);"/>
           <label for="student">在校生</label>
-          <input type="radio" name="isStudent" />
+          <input type="radio" name="isStudent" onkeydown="notSchool(this);" />
           <label for="student">非在校生</label>
           <div id="student">
               <span>学校</span>
@@ -34,6 +34,6 @@
               <input type="text" />
           </div>
       </div>
+      <script src="main.js"></script>
   </body>
-  <script src="main.js"></script>
 </html>
