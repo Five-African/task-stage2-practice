@@ -4,13 +4,11 @@ var $ = function(el) {
 
 function isSchool(tag){
     var tagStyle = tag.style;
-    if(tag.checked){
-        $("#notStudent").style.display="inline-block";
-    }
+    $("#notStudent").style.display="none";
+    $("#student").style.display="block";
 }
 function notSchool(tag) {
     var tagStyle = tag.style;
-    if(tag.checked){
-        $("#notStudent").style.display="none";
-    }
+    $("#notStudent").style.display="block";
+    $("#student").style.display="none";
 }
